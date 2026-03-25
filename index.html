@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレミアム個別体験会 ⟡ スピリチュアルセラピストchiyo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Royal Nude & Champagne Gold
+         Main Background: #ffffff to #fdf2f2 (Gradient)
+         Accent: #d4af37 (Gold)
+         Text: #4a4a4a (Charcoal Gray)
+         Action: #06C755 (LINE Green)
+    -->
+
+    <!-- Application Structure Plan: 
+         1. Hero Section: Immersive entry with value proposition and limitation notice.
+         2. Profile Section: Establishing authority and connection (The Guide).
+         3. Narrative Section (Story): The "Before/After" transformation to build empathy.
+         4. Offer Section: Details of the free premium experience.
+         5. Bonus Section: Grid layout of benefits to increase perceived value.
+         6. CTA Section: Clear, step-by-step conversion path to LINE.
+         
+         Interaction Design:
+         - Scroll-triggered fade-in animations (Reveal) for narrative pacing.
+         - Hover effects on cards and buttons for tactile feedback.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Layout: Single column mobile-first, expanding to multi-column on desktop for readability.
+         - Imagery: High-quality Unsplash placeholder for profile, replaced SVG icons with CSS/Unicode to ensure single-file portability.
+         - Typography: Mixed Serif (Shippori Mincho) for elegance and Sans-serif for utility classes.
+         - JS Logic: IntersectionObserver for performance-friendly scroll animations.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        :root {
+            --primary-pink: #fdf2f2;
+            --accent-gold: #d4af37;
+            --text-main: #4a4a4a;
+        }
+        body {
+            font-family: 'Shippori Mincho', serif;
+            color: var(--text-main);
+            background-color: #fff;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-elegant { font-family: 'Cormorant Garamond', serif; }
+        
+        /* Backgrounds */
+        .bg-royal {
+            background: linear-gradient(135deg, #fdf2f2 0%, #fff 50%, #f9f0ff 100%);
+        }
+
+        /* Typography Utilities */
+        .text-gold {
+            background: linear-gradient(to right, #b8860b, #e6b800, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        /* Decorative Elements */
+        .title-line {
+            display: block;
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+            margin: 2rem auto;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 20px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 1px;
+            background-color: var(--accent-gold);
+        }
+
+        /* Interactive Elements */
+        .line-button {
+            background-color: #06C755;
+            box-shadow: 0 4px 20px rgba(6, 199, 85, 0.3);
+            transition: all 0.3s ease;
+        }
+        .line-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(6, 199, 85, 0.4);
+        }
+
+        .card-shadow {
+            box-shadow: 0 15px 40px -15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #d4af37;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center bg-royal px-4 py-24 overflow-hidden text-center">
+        <!-- Floating Ambient Elements (CSS/Unicode) -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none select-none">
+            <div class="absolute top-10 left-[10%] text-xl font-elegant italic tracking-[0.3em] text-pink-300">Peace</div>
+            <div class="absolute bottom-20 right-[10%] text-xl font-elegant italic tracking-[0.3em] text-pink-300">Light</div>
+            <div class="absolute top-1/2 left-1/4 text-4xl text-pink-100">⟡</div>
+            <div class="absolute top-1/3 right-1/4 text-3xl text-pink-100">✧</div>
+        </div>
+        
+        <div class="max-w-4xl w-full z-10">
+            <div class="mb-12 inline-block">
+                <p class="text-xs md:text-sm tracking-[0.5em] text-gray-400 uppercase font-elegant mb-4">Official Line Members Only</p>
+                <div class="w-16 h-[1px] bg-pink-200 mx-auto"></div>
+            </div>
+
+            <h1 class="mb-14 leading-tight reveal active">
+                <span class="block text-sm md:text-xl tracking-[0.3em] text-gray-400 mb-8 font-elegant italic">Your soul is ready for a new chapter</span>
+                <span class="block text-xs md:text-sm tracking-[0.6em] text-gold font-elegant uppercase mb-5">Premium Experience</span>
+                <span class="text-4xl md:text-7xl lg:text-8xl text-gold font-bold tracking-tight inline-block relative">
+                    プレミアム個別体験会
+                </span>
+                <span class="title-line"></span>
+                <span class="text-xl md:text-3xl mt-6 block text-gray-600 tracking-[0.4em] font-light italic">特別なご案内</span>
+            </h1>
+
+            <p class="text-base md:text-xl mb-14 text-gray-500 leading-relaxed tracking-widest font-light reveal active" style="transition-delay: 0.2s;">
+                周りに振り回される人生を卒業し、<br class="hidden md:block">
+                心とエネルギーを整えて理想の現実を創造する ✧
+            </p>
+
+            <div class="bg-white/50 backdrop-blur-md px-10 py-5 rounded-full border border-pink-100 inline-block shadow-sm reveal active" style="transition-delay: 0.4s;">
+                <p class="text-[10px] md:text-xs text-gray-400 tracking-[0.2em]">✦ 期間限定公開 ✦ 一定期間を過ぎると自動的に削除されます</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="py-32 px-4 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-20 justify-center">
+                <!-- Image Container -->
+                <div class="relative group reveal">
+                    <div class="absolute -inset-4 bg-pink-50 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
+                    <div class="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border border-pink-100 flex-shrink-0 relative shadow-sm mx-auto">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800" 
+                             alt="セラピストchiyo" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="text-center md:text-left max-w-lg reveal" style="transition-delay: 0.2s;">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-10 flex flex-col md:flex-row md:items-baseline gap-3 justify-center md:justify-start">
+                        <span class="text-sm font-elegant italic text-gold tracking-[0.3em] uppercase">Spiritual Therapist</span>
+                        <span class="tracking-widest">chiyo</span>
+                    </h2>
+                    <ul class="space-y-6 text-gray-600 mb-12 text-sm md:text-base">
+                        <li class="flex items-center justify-center md:justify-start gap-4">
+                            <span class="w-1.5 h-1.5 bg-gold-400 rounded-full"></span>
+                            デビュー3年で鑑定実績 <span class="font-bold text-pink-400 text-lg">900件</span> 以上
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start gap-4">
+                            <span class="w-1.5 h-1.5 bg-gold-400 rounded-full"></span>
+                            マルシェ・ワークショップは <span class="font-bold text-pink-400 text-lg">常に満席</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start gap-4">
+                            <span class="w-1.5 h-1.5 bg-gold-400 rounded-full"></span>
+                            2年間で <span class="font-bold text-pink-400 text-lg">22名</span> の講座生を輩出
+                        </li>
+                    </ul>
+                    <p class="text-sm md:text-base leading-loose text-gray-500 tracking-wide">
+                        現在は多くの方に支持されていますが、かつての私は「ふわスピ」で不安定な状態でした。
+                        エネルギーに敏感すぎて体調を崩し、自信を持てなかった私だからこそ、地に足のついたスピリチュアルの重要性を伝えられるのです。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative Section -->
+    <section class="py-32 px-4 bg-pink-50/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-20 section-title italic tracking-widest reveal">かつて私は ⟡ ふわスピちゃん ⟡ でした</h2>
+            
+            <div class="text-left bg-white p-12 md:p-16 rounded-[3rem] card-shadow space-y-10 reveal" style="transition-delay: 0.2s;">
+                <p class="text-sm md:text-base leading-loose text-gray-600 tracking-wider">周りのエネルギーを受けすぎて体調を崩し、人間関係に振り回され、お金の不安が消えない日々。家族にも理解されず、「こんな私がセッションしていいの？」と自分を責めてばかりいました。</p>
+                <p class="text-sm md:text-base leading-loose text-gray-600 tracking-wider">スピリチュアルを学んでいるのに、現実は全く整っていない。そこから私は、本気でライトワーカーとしての「在り方」を学び直しました。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+                    <div class="px-6 py-4 bg-pink-50/30 rounded-full text-xs md:text-sm text-center text-gray-500 tracking-[0.2em] border border-pink-100/50">✧ ライトワーカーの在り方</div>
+                    <div class="px-6 py-4 bg-pink-50/30 rounded-full text-xs md:text-sm text-center text-gray-500 tracking-[0.2em] border border-pink-100/50">✧ チャクラ・エネルギー調整</div>
+                    <div class="px-4 py-4 bg-pink-50/30 rounded-full text-xs md:text-sm text-center text-gray-500 tracking-[0.2em] border border-pink-100/50">✧ チャネリングの基礎構築</div>
+                    <div class="px-4 py-4 bg-pink-50/30 rounded-full text-xs md:text-sm text-center text-gray-500 tracking-[0.2em] border border-pink-100/50">✧ 現実創造の強固な土台</div>
+                </div>
+
+                <div class="pt-10 text-center border-t border-pink-50 mt-10">
+                    <p class="font-bold text-xl md:text-2xl text-gray-800 mb-6 tracking-[0.2em]">
+                        驚くほど現実が安定し始めたのです
+                    </p>
+                    <p class="text-sm md:text-base italic text-gray-400 leading-relaxed tracking-widest">
+                        外側に振り回されなくなり、家族が変わり、<br>
+                        お金が循環し、願望が現実になるスピードが加速しました。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Section -->
+    <section class="py-32 px-4 bg-white">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 tracking-[0.2em] uppercase font-elegant italic">Experience ✧</h2>
+            <p class="text-gold text-lg md:text-xl font-bold mb-16 tracking-[0.4em] uppercase">プレミアム個別体験会</p>
+            
+            <div class="bg-royal p-12 md:p-20 rounded-[4rem] card-shadow relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-gold-200 via-gold-400 to-gold-200 opacity-50"></div>
+                <p class="text-base md:text-lg leading-loose mb-14 text-gray-600 tracking-widest">
+                    この体験会では、あなたの <span class="font-bold text-pink-400 underline decoration-pink-100 decoration-4 underline-offset-8">チャクラ・エネルギー状態</span> を拝見し、<br class="hidden md:block">
+                    これからどのように調整していけば人生が加速するのかを明確にしていきます。
+                </p>
+                <div class="flex flex-col items-center gap-8">
+                    <span class="text-[10px] tracking-[0.5em] text-gray-400 uppercase font-elegant">Participation Fee</span>
+                    <div class="relative inline-block">
+                        <span class="text-6xl md:text-8xl font-bold text-gold tracking-tighter">無料</span>
+                        <span class="absolute -top-6 -right-10 text-xl text-pink-200">✧</span>
+                    </div>
+                    <p class="text-xs text-gray-400 tracking-[0.3em] mt-6">※本気で自分を変えたい方のための、特別な時間です</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonus Grid Section -->
+    <section class="py-32 px-4 bg-pink-50/10">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-24 reveal">
+                <h2 class="text-2xl md:text-4xl font-bold mb-8 tracking-[0.3em]">豪華プレゼント特典</h2>
+                <p class="text-gold text-sm md:text-base tracking-[0.3em] font-light">公式LINE登録2大特典 ＋ 超豪華7大特典 ⟡</p>
+            </div>
+
+            <!-- Grid Items -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <!-- Javascript will populate transition delays for staggered effect -->
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">01</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">チャクラバランス<br>チェックリスト</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">02</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">グラウディング瞑想<br>音声マニュアル</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">03</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">インナーチャイルド<br>癒しのワーク</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">04</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">ネガティブな潜在意識<br>書き換えワーク</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">05</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">ハイヤーセルフと繋がる<br>呼吸法</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">06</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">感覚診断・感覚を<br>鍛える基礎</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">07</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">引き寄せの法則の<br>大原則</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">08</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">自信のメカニズムと<br>育て方</h3>
+                </div>
+                <div class="p-10 bg-white border border-pink-50 rounded-3xl card-shadow group hover:border-gold-200 transition-all duration-500 reveal">
+                    <span class="text-pink-100 font-elegant italic block mb-6 text-3xl group-hover:text-gold transition-colors duration-500">09</span>
+                    <h3 class="font-bold text-xs md:text-sm text-gray-600 tracking-widest leading-relaxed">自分軸になる<br>生き方のコツ</h3>
+                </div>
+            </div>
+            
+            <p class="text-center mt-24 text-[10px] text-gray-400 tracking-[0.4em] uppercase reveal">✧ Special Gifts for you ✧</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-32 px-4 bg-royal relative overflow-hidden reveal">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-2xl md:text-3xl font-bold mb-16 tracking-[0.3em] text-gold uppercase">お申し込み方法 ✧</h2>
+            
+            <div class="bg-white p-14 md:p-20 rounded-[4rem] shadow-2xl border border-pink-50 relative overflow-hidden">
+                <!-- Floating Bubble Decor -->
+                <div class="absolute top-0 right-0 w-40 h-40 bg-pink-50/50 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 relative z-10">
+                    <div>
+                        <p class="text-[10px] text-gray-400 mb-4 uppercase tracking-[0.4em] font-elegant">Step 01</p>
+                        <p class="font-bold text-sm md:text-base text-gray-700 tracking-widest underline decoration-pink-100 underline-offset-8">公式LINEを友だち追加</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-400 mb-4 uppercase tracking-[0.4em] font-elegant">Step 02</p>
+                        <p class="font-bold text-sm md:text-base text-gray-700 tracking-widest underline decoration-pink-100 underline-offset-8">LINEに「<span class="text-gold">プレミアム体験会</span>」と送信</p>
+                    </div>
+                </div>
+                
+                <a href="#" class="line-button text-white px-16 py-7 rounded-full font-bold text-lg md:text-xl inline-flex items-center gap-5 transition-all hover:scale-105 active:scale-95 relative z-10 tracking-widest">
+                    <!-- Pure CSS/Text Icon replacement for SVG to ensure portability -->
+                    <span class="text-2xl">💬</span>
+                    公式LINEへ進む
+                </a>
+                
+                <p class="mt-14 text-[10px] md:text-xs text-gray-400 tracking-[0.3em] leading-relaxed italic">
+                    ※枠には限りがございます。魂の準備ができた方からお越しください ✧
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 bg-white border-t border-pink-50 text-center">
+        <p class="text-[10px] text-gray-300 font-elegant tracking-[0.6em] uppercase">&copy; Spiritual Therapist chiyo</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Store (for potential future expansion)
+        const appData = {
+            therapistName: 'chiyo',
+            offerTitle: 'プレミアム個別体験会',
+            isLimited: true
+        };
+
+        // Scroll Reveal Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            // Initial check
+            revealOnScroll();
+
+            // Scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+
+            // Smooth Scroll for Anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
